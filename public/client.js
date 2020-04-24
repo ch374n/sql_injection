@@ -41,6 +41,17 @@ const HOMEPAGE_HTML = `
 </div>
 `
 
+
+
+
+window.addEventListener('DOMContentLoaded', () => {
+    fetch('/me', {})
+    .then(res => res.json())
+    .then(response => console.log(JSON.parse(response)))
+  
+})
+
+
 function submitForm(e) {
    e.preventDefault() 
   
@@ -70,6 +81,9 @@ function submitForm(e) {
         helperTextElement.removeAttribute('hidden')            
      });
 }
+
+
+
 
 const submitButtonElement = document.getElementById('submit') 
 const emailInputElement   = document.getElementById('email') 

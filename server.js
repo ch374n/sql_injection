@@ -5,9 +5,15 @@
 const express = require("express");
 const bodyParser = require("body-parser");
 const app = express();
+const cookieParser = require('cookie-parser') 
+const jwt = require('jsonwebtoken') 
 const fs = require("fs");
+require('dotenv').config({ path: './.env'})
+
+
 app.use(bodyParser.urlencoded({ extended: true }));
 app.use(bodyParser.json());
+app.use(cookieParser()) 
 
 // we've started you off with Express,
 // but feel free to use whatever libs or frameworks you'd like through `package.json`.
@@ -57,10 +63,24 @@ app.post('/login', (req, res) => {
         console.log(JSON.stringify(rows))
       
         if(!rows) return res.status(404).send({ message: "Incorrect credentials"})
+        
+        const [ user ] = rows 
+        
+        const token = jwt.sign({ uid : user.id }, SOME_SECRET) 
+        res.cookie('token', )
         return res.status(200).send(JSON.stringify(rows))
     })
   
 })
+
+
+app.get('/me', (req, res) => {
+    
+    if(req.uid) {
+        
+    }
+})
+
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, () => {
