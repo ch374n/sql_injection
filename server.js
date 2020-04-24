@@ -53,7 +53,7 @@ app.post('/login', (req, res) => {
   
   
   
-    db.all('SELECT * FROM users WHERE email=($) AND PASSWORD=(?)', req.body.email, req.body.password, (err, rows) => {
+    db.all(`SELECT * FROM users WHERE email="${req.body.email}" AND PASSWORD="${req.body.password}"`, (err, rows) => {
         console.log(JSON.stringify(rows))
         return res.status(200).send(JSON.stringify(rows))
     })
