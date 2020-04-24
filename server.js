@@ -37,11 +37,7 @@ db.serialize(() => {
     });
   } else {
     console.log('Database "Users" ready to go!');
-    db.each("SELECT * from Users", (err, row) => {
-      if (row) {
-        console.log(`record: ${row.dream}`);
-      }
-    });
+   
   }
 });
 
@@ -53,7 +49,7 @@ app.get("/", (request, response) => {
 
 app.post('/login', (req, res) => {
   
-    db.all('SELECT * FROM users WHERE id=(?) AND password=(?)', "admin@email.com", "password", (err, rows) => {
+    db.all('SELECT * FROM users WHERE email=(?) AND password=(?)', req.body.email, req.body.password, (err, rows) => {
         console.log(JSON.stringify(rows))
         return res.status(200).send(JSON.stringify(rows))
     })
