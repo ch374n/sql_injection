@@ -48,8 +48,12 @@ app.get("/", (request, response) => {
 
 
 app.post('/login', (req, res) => {
+    
+  console.log(req.body.password)
   
-    db.all('SELECT * FROM users WHERE email=(?) AND password=(?)', req.body.email, req.body.password, (err, rows) => {
+  
+  
+    db.all('SELECT * FROM users WHERE email=($) AND PASSWORD=(?)', req.body.email, req.body.password, (err, rows) => {
         console.log(JSON.stringify(rows))
         return res.status(200).send(JSON.stringify(rows))
     })
