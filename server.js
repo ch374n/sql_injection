@@ -25,19 +25,19 @@ const db = new sqlite3.Database(dbFile);
 db.serialize(() => {
   if (!exists) {
     db.run(
-      "CREATE TABLE Dreams (id INTEGER PRIMARY KEY AUTOINCREMENT, dream TEXT)"
+      "CREATE TABLE USERS (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT)"
     );
-    console.log("New table Dreams created!");
+    console.log("New table users created!");
 
     // insert default dreams
     db.serialize(() => {
       db.run(
-        'INSERT INTO Dreams (dream) VALUES ("Find and count some sheep"), ("Climb a really tall mountain"), ("Wash the dishes")'
+        'INSERT INTO USERS (name, password) VALUES("admin", "password")'
       );
     });
   } else {
-    console.log('Database "Dreams" ready to go!');
-    db.each("SELECT * from Dreams", (err, row) => {
+    console.log('Database "Users" ready to go!');
+    db.each("SELECT * from Users", (err, row) => {
       if (row) {
         console.log(`record: ${row.dream}`);
       }
@@ -50,59 +50,64 @@ app.get("/", (request, response) => {
   response.sendFile(`${__dirname}/views/index.html`);
 });
 
+
+app.get('/login', (req, res) => {
+  
+})
+
 // endpoint to get all the dreams in the database
-app.get("/getDreams", (request, response) => {
-  db.all("SELECT * from Dreams", (err, rows) => {
-    response.send(JSON.stringify(rows));
-  });
-});
+// app.get("/getDreams", (request, response) => {
+//   db.all("SELECT * from Dreams", (err, rows) => {
+//     response.send(JSON.stringify(rows));
+//   });
+// });
 
 // endpoint to add a dream to the database
-app.post("/addDream", (request, response) => {
-  console.log(`add to dreams ${request.body}`);
+// app.post("/addDream", (request, response) => {
+//   console.log(`add to dreams ${request.body}`);
 
-  // DISALLOW_WRITE is an ENV variable that gets reset for new projects so you can write to the database
-  if (!process.env.DISALLOW_WRITE) {
-    const cleansedDream = cleanseString(request.body.dream);
-    db.run(`INSERT INTO Dreams (dream) VALUES (?)`, cleansedDream, error => {
-      if (error) {
-        response.send({ message: "error!" });
-      } else {
-        response.send({ message: "success" });
-      }
-    });
-  }
-});
+//   // DISALLOW_WRITE is an ENV variable that gets reset for new projects so you can write to the database
+//   if (!process.env.DISALLOW_WRITE) {
+//     const cleansedDream = cleanseString(request.body.dream);
+//     db.run(`INSERT INTO Dreams (dream) VALUES (?)`, cleansedDream, error => {
+//       if (error) {
+//         response.send({ message: "error!" });
+//       } else {
+//         response.send({ message: "success" });
+//       }
+//     });
+//   }
+// });
 
-// endpoint to clear dreams from the database
-app.get("/clearDreams", (request, response) => {
-  // DISALLOW_WRITE is an ENV variable that gets reset for new projects so you can write to the database
-  if (!process.env.DISALLOW_WRITE) {
-    db.each(
-      "SELECT * from Dreams",
-      (err, row) => {
-        console.log("row", row);
-        db.run(`DELETE FROM Dreams WHERE ID=?`, row.id, error => {
-          if (row) {
-            console.log(`deleted row ${row.id}`);
-          }
-        });
-      },
-      err => {
-        if (err) {
-          response.send({ message: "error!" });
-        } else {
-          response.send({ message: "success" });
-        }
-      }
-    );
-  }
-});
+// // endpoint to clear dreams from the database
+// app.get("/clearDreams", (request, response) => {
+//   // DISALLOW_WRITE is an ENV variable that gets reset for new projects so you can write to the database
+//   if (!process.env.DISALLOW_WRITE) {
+//     db.each(
+//       "SELECT * from Dreams",
+//       (err, row) => {
+//         console.log("row", row);
+//         db.run(`DELETE FROM Dreams WHERE ID=?`, row.id, error => {
+//           if (row) {
+//             console.log(`deleted row ${row.id}`);
+//           }
+//         });
+//       },
+//       err => {
+//         if (err) {
+//           response.send({ message: "error!" });
+//         } else {
+//           response.send({ message: "success" });
+//         }
+//       }
+//     );
+//   }
+// });
 
-// helper function that prevents html/css/script malice
-const cleanseString = function(string) {
-  return string.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-};
+// // helper function that prevents html/css/script malice
+// const cleanseString = function(string) {
+//   return string.replace(/</g, "&lt;").replace(/>/g, "&gt;");
+// };
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, () => {

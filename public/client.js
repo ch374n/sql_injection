@@ -61,4 +61,16 @@
 //   dreamsList.innerHTML = "";
 // });
 
+function submitForm(e) {
+   e.preventDefault() 
+  
+   console.log(emailInputElement.value) 
+   console.log(passwordInputElement.value)
+}
+
+const submitButtonElement = document.getElementById('submit') 
+const emailInputElement   = document.getElementById('email') 
+const passwordInputElement= document.getElementById('password') 
+
+submitButtonElement.addEventListener('click', submitForm) 
 
