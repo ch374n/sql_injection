@@ -35,7 +35,7 @@ const HOMEPAGE_HTML = `
 </nav>
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">Welcome Admin &#128536;</h1>
+    <h1 class="display-4">Viola, you just hacked our website!!! &#128536;</h1>
     <hr class="my-4">
     <p class="font-weight-bold">Explanation:</p>
     <p class="lead">After signing  resulting query will be as follows: </p>
