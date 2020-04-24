@@ -35,10 +35,10 @@ const HOMEPAGE_HTML = `
 </nav>
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">Viola, you just hacked our website!!! &#128536;</h1>
+    <h1 class="display-4">Voila, you just hacked our website!!! &#128561;</h1>
     <hr class="my-4">
     <p class="font-weight-bold">Explanation:</p>
-    <p class="lead">After signing  resulting query will be as follows: </p>
+    <p class="lead">After signing  in resulting query will be as follows: </p>
     <img src="https://cdn.glitch.com/a2fc744e-afd5-4822-82f8-c8df2af166aa%2Fcarbon.png?v=1587733186126" class="img-fluid" alt="Responsive image">
     <hr class="my-4">
 
@@ -55,6 +55,38 @@ const HOMEPAGE_HTML = `
           -- " AND … is a SQL comment that eliminates the password part.
       </li>
     </ul>
+
+    <p class="lead">And thus it will fetch all entries in table and you'll be signed in...</p>
+  
+
+
+    <p class="font-weight-bold">How to prevent SQL Injection Attack ?</p>
+    <dl>
+      
+      <dt>
+        Use stored procedures or prepared SQL statements
+      </dt>
+      <dd>
+          So do not build dynamic SQL. This is the most effective way to prevent SQL injection.
+      </dd>
+      <dt>
+          Validate the type and pattern of input. If you know you're looking for specific data—like an ID, name, or email address—validate any user input based on type, length, or other attributes.
+      </dt>
+      <dd>
+      </
+      <dt>
+         Escape special characters like quotes. This approach is a quick and easy way to reduce the chances of SQL injection, but it's not fully effective.
+      </dt>
+        
+      <dt>
+         Limit database privileges. Application accounts that connect to the database should have as few privileges as possible. It's unlikely, for example, that your application will ever have to delete a table. So don't allow it.
+      </dt>
+
+      <dt>
+         Don't display database error messages to users. Error messages contain information that could tell hackers a lot of information about your data. Best practice is to give generic database error messages to users, and log detailed errors where developers can access them. Even better, send an alert to the dev team when there’s an error.
+      </dt>
+
+    </dl>
   </div>
 </div>
 
