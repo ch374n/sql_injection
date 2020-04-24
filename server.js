@@ -22,12 +22,12 @@ app.use(cookieParser())
 app.use(express.static("public"));
 
 app.use((req, res, next) => {
-    const { token } = req
+    const { token } = req.cookies
     
     if(token) {
-        const uid = jwt.verify(token, process.env.APP_SECRET) 
-        console.log('uid ==== ', uid) 
-        req.uid = uid 
+        const user = jwt.verify(token, process.env.APP_SECRET) 
+        console.log('user ', user) 
+        req.user = user 
     }
    
     next() 
@@ -93,12 +93,15 @@ app.post('/login', (req, res) => {
 
 app.get('/me', (req, res) => {
     
-    if(!req.uid) {
+    console.log('here ', req.user) 
+  
+    if(!req.user) {
         return res.status(500).send({ message: "please sign in"})
     }
   
     console.log('is signed in.')
-    db.all(`SELECT * FROM users WHERE uid=${req.uid}`, (err, rows) => {
+    db.all(`SELECT * FROM users WHERE id=${req.user.uid}`, (err, rows) => {
+        console.log(rows)
         return res.status(200).send(JSON.stringify(rows)) 
     })
 })

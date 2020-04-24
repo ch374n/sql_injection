@@ -36,9 +36,32 @@ const HOMEPAGE_HTML = `
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
     <h1 class="display-4">Welcome Admin &#128536;</h1>
-    
+    <hr class="my-4">
+    <p class="font-weight-bold">Explanation:</p>
+    <p class="lead">After signing in resulting query will be as follows: </p>
+    <img src="https://cdn.glitch.com/a2fc744e-afd5-4822-82f8-c8df2af166aa%2Fcarbon.png?v=1587733186126" class="img-fluid" alt="Responsive image">
+    <hr class="my-4">
+
+    <p class="font-weight-bold">Here:</p>
+    <ul>
+
+      <li>
+          somerandomemail.com ends with a double quote which completes the string quote
+      </li>
+      <li>
+          OR 1 = 1 is a condition that will always be true and
+      </li>
+      <li>
+          -- " AND … is a SQL comment that eliminates the password part.
+      </li>
+    </ul>
   </div>
 </div>
+
+
+
+
+
 `
 
 
@@ -104,7 +127,7 @@ const SIGN_IN_HTML  =  `
 `
 
 window.addEventListener('DOMContentLoaded', () => {
-    document.body.innerHTML = SIGN_IN_HTML 
+    // document.body.innerHTML = SIGN_IN_HTML 
   
     fetch('/me', {})
     .then(res => {
