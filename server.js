@@ -78,7 +78,6 @@ app.post('/login', (req, res) => {
         
         const [ user ] = rows 
           
-        console.log(process.env.APP_SECRET) 
       
         const token = jwt.sign({ uid : user.id }, process.env.APP_SECRET) 
         res.cookie('token', token, {
@@ -97,7 +96,8 @@ app.get('/me', (req, res) => {
     if(!req.uid) {
         return res.status(500).send({ message: "please sign in"})
     }
-    
+  
+    console.log('is signed in.')
     db.all(`SELECT * FROM users WHERE uid=${req.uid}`, (err, rows) => {
         return res.status(200).send(JSON.stringify(rows)) 
     })
