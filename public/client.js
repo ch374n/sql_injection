@@ -1,65 +1,52 @@
-// client-side js
-// run by the browser each time your view template referencing it is loaded
 
-// console.log("hello world :o");
+const HOMEPAGE_HTML = `
+  
+<nav class="navbar navbar-expand-lg navbar-light bg-light">
+  <a class="navbar-brand" href="#">Navbar</a>
+  <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
+    <span class="navbar-toggler-icon"></span>
+  </button>
 
-// const dreams = [];
-
-// // define variables that reference elements on our page
-// const dreamsForm = document.forms[0];
-// const dreamInput = dreamsForm.elements["dream"];
-// const dreamsList = document.getElementById("dreams");
-// const clearButton = document.querySelector('#clear-dreams');
-
-// // request the dreams from our app's sqlite database
-// fetch("/getDreams", {})
-//   .then(res => res.json())
-//   .then(response => {
-//     response.forEach(row => {
-//       appendNewDream(row.dream);
-//     });
-//   });
-
-// // a helper function that creates a list item for a given dream
-// const appendNewDream = dream => {
-//   const newListItem = document.createElement("li");
-//   newListItem.innerText = dream;
-//   dreamsList.appendChild(newListItem);
-// };
-
-// // listen for the form to be submitted and add a new dream when it is
-// dreamsForm.onsubmit = event => {
-//   // stop our form submission from refreshing the page
-//   event.preventDefault();
-
-//   const data = { dream: dreamInput.value };
-
-//   fetch("/addDream", {
-//     method: "POST",
-//     body: JSON.stringify(data),
-//     headers: { "Content-Type": "application/json" }
-//   })
-//     .then(res => res.json())
-//     .then(response => {
-//       console.log(JSON.stringify(response));
-//     });
-//   // get dream value and add it to the list
-//   dreams.push(dreamInput.value);
-//   appendNewDream(dreamInput.value);
-
-//   // reset form
-//   dreamInput.value = "";
-//   dreamInput.focus();
-// };
-
-// clearButton.addEventListener('click', event => {
-//   fetch("/clearDreams", {})
-//     .then(res => res.json())
-//     .then(response => {
-//       console.log("cleared dreams");
-//     });
-//   dreamsList.innerHTML = "";
-// });
+  <div class="collapse navbar-collapse" id="navbarSupportedContent">
+    <ul class="navbar-nav mr-auto">
+      <li class="nav-item active">
+        <a class="nav-link" href="#">Home <span class="sr-only">(current)</span></a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#">Link</a>
+      </li>
+      <li class="nav-item dropdown">
+        <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button" data-toggle="dropdown" aria-haspopup="true" aria-expanded="false">
+          Dropdown
+        </a>
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link disabled" href="#">Disabled</a>
+      </li>
+    </ul>
+    <form class="form-inline my-2 my-lg-0">
+        <div class="dropdown-menu" aria-labelledby="navbarDropdown">
+          <a class="dropdown-item" href="#">Action</a>
+          <a class="dropdown-item" href="#">Another action</a>
+          <div class="dropdown-divider"></div>
+          <a class="dropdown-item" href="#">Something else here</a>
+        </div>
+    </form>
+  </div>
+</nav>
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Welcome Admin &#128536;</h1>
+    
+  </div>
+</div>
+`
 
 function submitForm(e) {
    e.preventDefault() 
@@ -82,7 +69,9 @@ function submitForm(e) {
          return res.json()  
      })
     .then(response => {
-      console.log(JSON.stringify(response));
+      
+        document.body.innerHTML = HOMEPAGE_HTML 
+       
     })
     .catch(e => {
         helperTextElement.removeAttribute('hidden')            

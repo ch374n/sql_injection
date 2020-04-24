@@ -49,73 +49,18 @@ app.get("/", (request, response) => {
 
 app.post('/login', (req, res) => {
     
-  console.log(req.body.password)
+  console.log(req.body.email,req.body.password)
   
   
   
     db.all(`SELECT * FROM users WHERE email="${req.body.email}" AND PASSWORD="${req.body.password}"`, (err, rows) => {
         console.log(JSON.stringify(rows))
       
-        if(!rows.length) return res.status(404).send({ message: "Incorrect credentials"})
+        if(!rows) return res.status(404).send({ message: "Incorrect credentials"})
         return res.status(200).send(JSON.stringify(rows))
     })
   
 })
-
-
-// endpoint to get all the dreams in the database
-// app.get("/getDreams", (request, response) => {
-//   db.all("SELECT * from Dreams", (err, rows) => {
-//     response.send(JSON.stringify(rows));
-//   });
-// });
-
-// endpoint to add a dream to the database
-// app.post("/addDream", (request, response) => {
-//   console.log(`add to dreams ${request.body}`);
-
-//   // DISALLOW_WRITE is an ENV variable that gets reset for new projects so you can write to the database
-//   if (!process.env.DISALLOW_WRITE) {
-//     const cleansedDream = cleanseString(request.body.dream);
-//     db.run(`INSERT INTO Dreams (dream) VALUES (?)`, cleansedDream, error => {
-//       if (error) {
-//         response.send({ message: "error!" });
-//       } else {
-//         response.send({ message: "success" });
-//       }
-//     });
-//   }
-// });
-
-// // endpoint to clear dreams from the database
-// app.get("/clearDreams", (request, response) => {
-//   // DISALLOW_WRITE is an ENV variable that gets reset for new projects so you can write to the database
-//   if (!process.env.DISALLOW_WRITE) {
-//     db.each(
-//       "SELECT * from Dreams",
-//       (err, row) => {
-//         console.log("row", row);
-//         db.run(`DELETE FROM Dreams WHERE ID=?`, row.id, error => {
-//           if (row) {
-//             console.log(`deleted row ${row.id}`);
-//           }
-//         });
-//       },
-//       err => {
-//         if (err) {
-//           response.send({ message: "error!" });
-//         } else {
-//           response.send({ message: "success" });
-//         }
-//       }
-//     );
-//   }
-// });
-
-// // helper function that prevents html/css/script malice
-// const cleanseString = function(string) {
-//   return string.replace(/</g, "&lt;").replace(/>/g, "&gt;");
-// };
 
 // listen for requests :)
 var listener = app.listen(process.env.PORT, () => {
