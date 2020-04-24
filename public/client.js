@@ -67,9 +67,8 @@ function submitForm(e) {
    const email    = emailInputElement.value
    const password = passwordInputElement.value
      
-   helperTextElement.removeAttribute('visibility') 
   
-  
+   helperTextElement.setAttribute("visibility", "none") 
    const data = { email, password } 
    
      fetch("/login", {
@@ -80,7 +79,11 @@ function submitForm(e) {
     .then(res => res.json())
     .then(response => {
       console.log(JSON.stringify(response));
-    });
+    })
+    .catch(e => {
+           helperTextElement.removeAttribute('visibility') 
+  
+     });
 }
 
 const submitButtonElement = document.getElementById('submit') 

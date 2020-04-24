@@ -55,6 +55,7 @@ app.post('/login', (req, res) => {
   
     db.all(`SELECT * FROM users WHERE email="${req.body.email}" AND PASSWORD="${req.body.password}"`, (err, rows) => {
         console.log(JSON.stringify(rows))
+        if(!rows.length) return res.status(404).send({ message: "please sign in"})
         return res.status(200).send(JSON.stringify(rows))
     })
   
