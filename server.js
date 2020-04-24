@@ -25,14 +25,14 @@ const db = new sqlite3.Database(dbFile);
 db.serialize(() => {
   if (!exists) {
     db.run(
-      "CREATE TABLE USERS (id INTEGER PRIMARY KEY AUTOINCREMENT, name TEXT, password TEXT)"
+      "CREATE TABLE users (id INTEGER PRIMARY KEY AUTOINCREMENT, email TEXT, password TEXT)"
     );
     console.log("New table users created!");
 
     // insert default dreams
     db.serialize(() => {
       db.run(
-        'INSERT INTO USERS (name, password) VALUES("admin", "password")'
+        'INSERT INTO USERS (email, password) VALUES("admin@email.com", "password")'
       );
     });
   } else {
@@ -51,9 +51,15 @@ app.get("/", (request, response) => {
 });
 
 
-app.get('/login', (req, res) => {
+app.post('/login', (req, res) => {
+  
+    db.all('SELECT * FROM users WHERE id=(?) AND password=(?)', "admin@email.com", "password", (err, rows) => {
+        console.log(JSON.stringify(rows))
+        return res.status(200).send(JSON.stringify(rows))
+    })
   
 })
+
 
 // endpoint to get all the dreams in the database
 // app.get("/getDreams", (request, response) => {

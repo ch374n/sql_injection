@@ -64,13 +64,29 @@
 function submitForm(e) {
    e.preventDefault() 
   
-   console.log(emailInputElement.value) 
-   console.log(passwordInputElement.value)
+   const email    = emailInputElement.value
+   const password = passwordInputElement.value
+     
+   helperTextElement.removeAttribute('visibility') 
+  
+  
+   const data = { email, password } 
+   
+     fetch("/login", {
+      method: "POST",
+      body: JSON.stringify(data),
+      headers: { "Content-Type": "application/json" }
+    })
+    .then(res => res.json())
+    .then(response => {
+      console.log(JSON.stringify(response));
+    });
 }
 
 const submitButtonElement = document.getElementById('submit') 
 const emailInputElement   = document.getElementById('email') 
 const passwordInputElement= document.getElementById('password') 
+const helperTextElement   = document.getElementById('helper-text') 
 
 submitButtonElement.addEventListener('click', submitForm) 
 
