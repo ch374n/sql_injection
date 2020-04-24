@@ -72,8 +72,7 @@ app.post('/login', (req, res) => {
   
   
     db.all(`SELECT * FROM users WHERE email="${req.body.email}" AND PASSWORD="${req.body.password}"`, (err, rows) => {
-        console.log(JSON.stringify(rows))
-      
+        
         if(!rows) return res.status(404).send({ message: "Incorrect credentials"})
         
         const [ user ] = rows 
@@ -93,17 +92,24 @@ app.post('/login', (req, res) => {
 
 app.get('/me', (req, res) => {
     
-    console.log('here ', req.user) 
+    
   
     if(!req.user) {
         return res.status(404).send({ message: "please sign in"})
     }
   
-    console.log('is signed in.')
     db.all(`SELECT * FROM users WHERE id=${req.user.uid}`, (err, rows) => {
-        console.log(rows)
         return res.status(200).send(JSON.stringify(rows)) 
     })
+})
+
+app.get('/logout', (req, res) => {
+    
+    console.log('logging out...')
+    
+    res.clearCookie('token') 
+  
+    return res.status(200).send() 
 })
 
 

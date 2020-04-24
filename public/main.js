@@ -1,5 +1,5 @@
 
-const HOMEPAGE_HTML = `
+const homepageHTML = () => `
   
 <nav class="navbar navbar-expand-lg  navbar-dark bg-primary">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -160,13 +160,10 @@ window.addEventListener('DOMContentLoaded', () => {
         if(res.status === 404) {
            throw new Error('please sign in ') 
         } else if(res.status === 200) { 
-            document.body.innerHTML = HOMEPAGE_HTML 
-            return { message: "is signed in"}
+            document.body.innerHTML = homepageHTML() 
         }   
       
-        return res.json() 
     })
-    .then(response => console.log(JSON.parse(response)))
     .catch(e => console.log(e))
   
   
@@ -195,8 +192,7 @@ function submitForm(e) {
      })
     .then(response => {
       
-        document.body.innerHTML = HOMEPAGE_HTML 
-       
+        document.body.innerHTML = homepageHTML()       
     })
     .catch(e => {
         helperTextElement.removeAttribute('hidden')            
