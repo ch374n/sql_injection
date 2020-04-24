@@ -21,6 +21,18 @@ app.use(cookieParser())
 // http://expressjs.com/en/starter/static-files.html
 app.use(express.static("public"));
 
+app.use((req, res, next) => {
+    const { token } = req
+    
+    if(token) {
+        const uid = jwt.verify(token, process.env.APP_SECRET) 
+        console.log('uid ==== ', uid) 
+        req.uid = uid 
+    }
+   
+    next() 
+})
+
 // init sqlite db
 const dbFile = "./.data/sqlite.db";
 const exists = fs.existsSync(dbFile);
@@ -65,9 +77,15 @@ app.post('/login', (req, res) => {
         if(!rows) return res.status(404).send({ message: "Incorrect credentials"})
         
         const [ user ] = rows 
-        
-        const token = jwt.sign({ uid : user.id }, SOME_SECRET) 
-        res.cookie('token', )
+          
+        console.log(process.env.APP_SECRET) 
+      
+        const token = jwt.sign({ uid : user.id }, process.env.APP_SECRET) 
+        res.cookie('token', token, {
+            httpOnly: true, 
+            maxAge: 1000 * 60 * 60 * 365 
+        })
+      
         return res.status(200).send(JSON.stringify(rows))
     })
   
@@ -76,9 +94,13 @@ app.post('/login', (req, res) => {
 
 app.get('/me', (req, res) => {
     
-    if(req.uid) {
-        
+    if(!req.uid) {
+        return res.status(500).send({ message: "please sign in"})
     }
+    
+    db.all(`SELECT * FROM users WHERE uid=${req.uid}`, (err, rows) => {
+        return res.status(200).send(JSON.stringify(rows)) 
+    })
 })
 
 
