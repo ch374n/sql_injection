@@ -22,7 +22,7 @@ const HOMEPAGE_HTML = `
           Settings
         </a>
         <div class="dropdown-menu" aria-labelledby="navbarDropdown">
-          <a class="dropdown-item" href="#">Logout</a>
+          <a class="dropdown-item" onclick="logout()" href="#">Logout</a>
         </div>
       </li>
 
@@ -64,34 +64,46 @@ const HOMEPAGE_HTML = `
     <dl>
       
       <dt>
-        Use stored procedures or prepared SQL statements
+        1. Use stored procedures or prepared SQL statements
       </dt>
       <dd>
           So do not build dynamic SQL. This is the most effective way to prevent SQL injection.
       </dd>
       <dt>
-          Validate the type and pattern of input. If you know you're looking for specific data—like an ID, name, or email address—validate any user input based on type, length, or other attributes.
+          2. Validate the type and pattern of input
       </dt>
       <dd>
-      </
+         If you know you're looking for specific data—like an ID, name, or email address—validate any user input based on type, length, or other attributes.
+      </dd> 
       <dt>
-         Escape special characters like quotes. This approach is a quick and easy way to reduce the chances of SQL injection, but it's not fully effective.
+         3. Escape special characters like quotes
       </dt>
+      <dd>
+         This approach is a quick and easy way to reduce the chances of SQL injection, but it's not fully effective.
+      </dd> 
         
       <dt>
-         Limit database privileges. Application accounts that connect to the database should have as few privileges as possible. It's unlikely, for example, that your application will ever have to delete a table. So don't allow it.
+         4. Limit database privileges
       </dt>
-
+      <dd>
+         Application accounts that connect to the database should have as few privileges as possible. It's unlikely, for example, that your application will ever have to delete a table. So don't allow it.
+      </dd> 
       <dt>
-         Don't display database error messages to users. Error messages contain information that could tell hackers a lot of information about your data. Best practice is to give generic database error messages to users, and log detailed errors where developers can access them. Even better, send an alert to the dev team when there’s an error.
+         5. Don't display database error messages to users
       </dt>
-
+      <dd>
+         Error messages contain information that could tell hackers a lot of information about your data. Best practice is to give generic database error messages to users, and log detailed errors where developers can access them. Even better, send an alert to the dev team when there’s an error.
+      </dd> 
     </dl>
   </div>
 </div>
 
 
-
+<footer class="footer">
+      <div class="container" style="text-align: center; margin-bottom: 20px; color:white;">
+        <span class="text-muted" style="color: black !important">@copyright 2020 proximal-mangrove-cacao.glitch.me</span>
+      </div>
+</footer>
 
 
 `
@@ -151,6 +163,9 @@ function submitForm(e) {
 }
 
 
+function logout(e) {
+    e.preventF
+}
 
 
 
