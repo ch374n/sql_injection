@@ -96,7 +96,7 @@ app.get('/me', (req, res) => {
     console.log('here ', req.user) 
   
     if(!req.user) {
-        return res.status(500).send({ message: "please sign in"})
+        return res.status(404).send({ message: "please sign in"})
     }
   
     console.log('is signed in.')
