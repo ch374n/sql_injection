@@ -68,7 +68,7 @@ function submitForm(e) {
    const password = passwordInputElement.value
      
   
-   helperTextElement.setAttribute("visibility", "none") 
+   
    const data = { email, password } 
    
      fetch("/login", {
@@ -76,13 +76,16 @@ function submitForm(e) {
       body: JSON.stringify(data),
       headers: { "Content-Type": "application/json" }
     })
-    .then(res => res.json())
+    .then(res => {
+       
+         if(res.status === 404) throw new Error("Incorrect credentials")
+         return res.json()  
+     })
     .then(response => {
       console.log(JSON.stringify(response));
     })
     .catch(e => {
-           helperTextElement.removeAttribute('visibility') 
-  
+        helperTextElement.removeAttribute('hidden')            
      });
 }
 
