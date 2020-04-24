@@ -6,6 +6,12 @@ const homepageHTML = () => `
     <span class="navbar-toggler-icon"></span>
   </button>
 
+
+  <a class="navbar-brand" href="#">
+    <img src="http://img.freepik.com/free-icon/male-user-silhouette_318-35708.jpg?size=338&ext=jpg" width="30" height="30" class="d-inline-block align-top" alt="">
+    Bootstrap
+  </a>
+
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
     <ul class="navbar-nav mr-auto">
 
