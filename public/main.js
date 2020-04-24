@@ -108,6 +108,47 @@ const HOMEPAGE_HTML = `
 
 `
 
+const signInHTML = () => `
+    
+      
+  
+    <div class="mx-auto" style="width: 70vw;">
+  
+
+  <div class="wrapper fadeInDown">
+    <div id="formContent">
+      <!-- Tabs Titles -->
+
+      <!-- Icon -->
+      <div class="fadeIn first">
+        <img src="https://citizenmed.files.wordpress.com/2011/08/user-icon1.jpg" id="icon" alt="User Icon" />
+      </div>
+
+      <!-- Login Form -->
+      <form>
+        <input type="email" id="email" class="fadeIn second" name="login" placeholder="email" required>
+        <input type="password" id="password" class="fadeIn third" name="login" placeholder="password" required>
+        <p style="
+            color: red;
+
+        "  hidden="true" id="helper-text">
+           incorrect username or password
+        </p>
+        <input id="submit" type="submit" class="fadeIn fourth" value="Log In">
+      </form>
+    </div>
+  </div>
+  <div class="jumbotron">
+    <h1 class="display-4">SQL Injection Example</h1>
+    <p class="lead">Use following credentials: .</p>
+    <p class="text-monospace">Email: somerandomemail.com" OR 1=1 --</p>
+    <p class="text-monospace">Password: somepassword</p>
+
+
+
+  </div>  
+`
+
 
 
 window.addEventListener('DOMContentLoaded', () => {
@@ -163,8 +204,14 @@ function submitForm(e) {
 }
 
 
-function logout(e) {
-    e.preventF
+function logout() {
+    
+    fetch('/logout', {})
+      .then(res => {
+          if(res.status === 200) {
+              document.body.innerHTML = signInHTML() 
+          }
+      })
 }
 
 
