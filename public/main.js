@@ -1,5 +1,7 @@
+const BLANKSPACE = '&nbsp;&nbsp;&nbsp;&nbsp;&nbsp'
 
-const homepageHTML = () => `
+
+const homepageHTML = (email) => `
   
 <nav class="navbar navbar-expand-lg  navbar-dark bg-primary">
   <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
@@ -8,8 +10,8 @@ const homepageHTML = () => `
 
 
   <a class="navbar-brand" href="#">
-    <img src="http://img.freepik.com/free-icon/male-user-silhouette_318-35708.jpg?size=338&ext=jpg" width="30" height="30" class="d-inline-block align-top" alt="">
-    Bootstrap
+    <img src="https://png.pngtree.com/svg/20170816/man_1074308.png" width="30" height="30" class="d-inline-block align-top" alt="">
+    ${email}
   </a>
 
   <div class="collapse navbar-collapse" id="navbarSupportedContent">
@@ -73,32 +75,32 @@ const homepageHTML = () => `
         1. Use stored procedures or prepared SQL statements
       </dt>
       <dd>
-          So do not build dynamic SQL. This is the most effective way to prevent SQL injection.
+          ${BLANKSPACE} So do not build dynamic SQL. This is the most effective way to prevent SQL injection.
       </dd>
       <dt>
           2. Validate the type and pattern of input
       </dt>
       <dd>
-         If you know you're looking for specific data—like an ID, name, or email address—validate any user input based on type, length, or other attributes.
+         ${BLANKSPACE}  If you know you're looking for specific data—like an ID, name, or email address—validate any user input based on type, length, or other attributes.
       </dd> 
       <dt>
          3. Escape special characters like quotes
       </dt>
       <dd>
-         This approach is a quick and easy way to reduce the chances of SQL injection, but it's not fully effective.
+         ${BLANKSPACE}  This approach is a quick and easy way to reduce the chances of SQL injection, but it's not fully effective.
       </dd> 
         
       <dt>
          4. Limit database privileges
       </dt>
       <dd>
-         Application accounts that connect to the database should have as few privileges as possible. It's unlikely, for example, that your application will ever have to delete a table. So don't allow it.
+         ${BLANKSPACE}  Application accounts that connect to the database should have as few privileges as possible. It's unlikely, for example, that your application will ever have to delete a table. So don't allow it.
       </dd> 
       <dt>
          5. Don't display database error messages to users
       </dt>
       <dd>
-         Error messages contain information that could tell hackers a lot of information about your data. Best practice is to give generic database error messages to users, and log detailed errors where developers can access them. Even better, send an alert to the dev team when there’s an error.
+         ${BLANKSPACE}  Error messages contain information that could tell hackers a lot of information about your data. Best practice is to give generic database error messages to users, and log detailed errors where developers can access them. Even better, send an alert to the dev team when there’s an error.
       </dd> 
     </dl>
   </div>
@@ -166,7 +168,11 @@ window.addEventListener('DOMContentLoaded', () => {
         if(res.status === 404) {
            throw new Error('please sign in ') 
         } else if(res.status === 200) { 
-            document.body.innerHTML = homepageHTML() 
+            res.json().then(users => {
+                const { email } = users[0] 
+                document.body.innerHTML = homepageHTML(email) 
+            })
+            
         }   
       
     })
